@@ -10,6 +10,7 @@ poetry init
 poetry add --dev \
     black \
     flake8 \
+    autoflake8 \
     isort \
     mypy \
     nox \
