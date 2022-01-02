@@ -14,3 +14,20 @@ import_heading_localfolder = "Local Library"
 python_version = "3.10"
 warn_return_any = true
 warn_unused_configs = true
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = [
+    "-rxX",
+    "--capture=no",
+    "-pno:logging",
+    # "--cov",
+    # "--cov-append",
+    # "--cov-report=term-missing",
+]
+testpaths = "tests"
+python_files = [
+    "tests.py",
+    "test_*.py",
+    "*_tests.py",
+]
