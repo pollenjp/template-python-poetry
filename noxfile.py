@@ -54,7 +54,7 @@ def test(session):
 def lint(session):
     env: Dict[str, str] = {}
     env.update(env_common)
-    kwargs = dict(env=env, success_codes=[0, 1])
+    kwargs = dict(env=env)
 
     install_package(session, dev=True)
     session.run("flake8", "--statistics", "--count", "--show-source", *python_code_path_list, **kwargs)
