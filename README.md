@@ -24,3 +24,5 @@ check your python version and update some config
   - `PYTHONPATH`
 - `pyproject.toml`
   - mypy's `python_version`
+
+If you use this github template, update `README.md` .
