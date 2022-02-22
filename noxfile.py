@@ -61,7 +61,7 @@ def lint(session):
     session.run("autoflake8", "--check", "--recursive", "--remove-unused-variables", *python_code_path_list, **kwargs)
     session.run("isort", "--check", *python_code_path_list, **kwargs)
     session.run("black", "--check", *python_code_path_list, **kwargs)
-    session.run("mypy", "--check", *python_code_path_list, **kwargs)
+    session.run("mypy", "--check", "--no-incremental", *python_code_path_list, **kwargs)
 
 
 @nox.session(python=python_version_list)
