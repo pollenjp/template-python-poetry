@@ -6,6 +6,7 @@ from typing import List
 
 # Third Party Library
 import nox
+from nox.sessions import Session
 
 python_code_path_list: List[str] = [
     "path/to/python/directory",  # TODO: python directory
@@ -19,7 +20,12 @@ nox_tmp_dir: Path = Path(__file__).parent / ".nox_tmp"
 python_version_list: List[str] = ["3.10"]  # TODO: check python version
 
 
-def install_package(session: nox.sessions.Session, dev: bool = False):
+class SessionKwargs(TypedDict, total=False):
+    env: Dict[str, str]
+    success_codes: List[int]
+
+
+def install_package(session: Session, dev: bool = False) -> None:
     session.install("--upgrade", "pip")
     session.run("pip", "-V")
     requirements_txt_path: Path = nox_tmp_dir / f"poetry-requirements-{str(uuid.uuid4())}.txt"
@@ -42,20 +48,20 @@ def install_package(session: nox.sessions.Session, dev: bool = False):
 
 
 @nox.session(python=python_version_list)
-def test(session):
+def test(session: Session) -> None:
     env: Dict[str, str] = {}
     env.update(env_common)
-    kwargs = dict(env=env)
+    kwargs: SessionKwargs = dict(env=env)
 
     install_package(session, dev=True)
     session.run("pytest", **kwargs)
 
 
 @nox.session(python=python_version_list)
-def lint(session):
+def lint(session: Session) -> None:
     env: Dict[str, str] = {}
     env.update(env_common)
-    kwargs = dict(env=env)
+    kwargs: SessionKwargs = dict(env=env)
 
     install_package(session, dev=True)
     session.run("flake8", "--statistics", "--count", "--show-source", *python_code_path_list, **kwargs)
@@ -66,10 +72,10 @@ def lint(session):
 
 
 @nox.session(python=python_version_list)
-def format(session):
+def format(session: Session) -> None:
     env: Dict[str, str] = {}
     env.update(env_common)
-    kwargs = dict(env=env, success_codes=[0, 1])
+    kwargs: SessionKwargs = dict(env=env, success_codes=[0, 1])
 
     install_package(session, dev=True)
     session.run(
