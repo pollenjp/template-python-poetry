@@ -49,30 +49,6 @@ def install_package(session: Session, dev: bool = False) -> None:
 
 
 @nox.session(python=python_version_list)
-def test(session: Session) -> None:
-    env: Dict[str, str] = {}
-    env.update(env_common)
-    kwargs: SessionKwargs = dict(env=env)
-
-    install_package(session, dev=True)
-    session.run("pytest", **kwargs)
-
-
-@nox.session(python=python_version_list)
-def lint(session: Session) -> None:
-    env: Dict[str, str] = {}
-    env.update(env_common)
-    kwargs: SessionKwargs = dict(env=env)
-
-    install_package(session, dev=True)
-    session.run("flake8", "--statistics", "--count", "--show-source", *python_code_path_list, **kwargs)
-    session.run("autoflake8", "--check", "--recursive", "--remove-unused-variables", *python_code_path_list, **kwargs)
-    session.run("isort", "--check", *python_code_path_list, **kwargs)
-    session.run("black", "--check", *python_code_path_list, **kwargs)
-    session.run("mypy", "--check", "--no-incremental", *python_code_path_list, **kwargs)
-
-
-@nox.session(python=python_version_list)
 def format(session: Session) -> None:
     env: Dict[str, str] = {}
     env.update(env_common)
@@ -91,3 +67,27 @@ def format(session: Session) -> None:
     )
     session.run("isort", *python_code_path_list, **kwargs)
     session.run("black", *python_code_path_list, **kwargs)
+
+
+@nox.session(python=python_version_list)
+def lint(session: Session) -> None:
+    env: Dict[str, str] = {}
+    env.update(env_common)
+    kwargs: SessionKwargs = dict(env=env)
+
+    install_package(session, dev=True)
+    session.run("flake8", "--statistics", "--count", "--show-source", *python_code_path_list, **kwargs)
+    session.run("autoflake8", "--check", "--recursive", "--remove-unused-variables", *python_code_path_list, **kwargs)
+    session.run("isort", "--check", *python_code_path_list, **kwargs)
+    session.run("black", "--check", *python_code_path_list, **kwargs)
+    session.run("mypy", "--check", "--no-incremental", *python_code_path_list, **kwargs)
+
+
+@nox.session(python=python_version_list)
+def test(session: Session) -> None:
+    env: Dict[str, str] = {}
+    env.update(env_common)
+    kwargs: SessionKwargs = dict(env=env)
+
+    install_package(session, dev=True)
+    session.run("pytest", **kwargs)
