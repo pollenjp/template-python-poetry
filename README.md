@@ -7,7 +7,7 @@ poetry init
 ```
 
 ```sh
-poetry add --dev \
+poetry add --group dev \
     black \
     flake8 \
     autoflake8 \

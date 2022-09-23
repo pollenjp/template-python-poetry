@@ -39,7 +39,7 @@ def install_package(session: Session, dev: bool = False) -> None:
             "requirements.txt",
             "--output",
             f"{requirements_txt_path}",
-        ] + (["--dev"] if dev else [])
+        ] + (["--with", "dev"] if dev else [])
         session.run(*cmd, external=True)
         session.install("-r", f"{requirements_txt_path}")
     except Exception as e:
