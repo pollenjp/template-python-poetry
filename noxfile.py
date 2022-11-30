@@ -15,7 +15,9 @@ python_code_path_list: List[str] = [
     "noxfile.py",
 ]
 assert all(isinstance(path, str) for path in python_code_path_list)
-env_common: Dict[str, str] = {}
+env_common: Dict[str, str] = {
+    # "PYTHONPATH": f"{src_dir}",
+}
 nox_tmp_dir: Path = Path(__file__).parent / ".nox_tmp"
 python_version_list: List[str] = ["3.10"]  # TODO: check python version
 
