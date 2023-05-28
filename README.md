@@ -6,6 +6,19 @@
 poetry init
 ```
 
+Edit `pyproject.toml`
+
+```toml
+[tool.poetry]
+name = "fastapi-score-server-app"
+...
+packages = [
+    {include = "<package>", from = "src"}
+]
+```
+
+Add developer tools
+
 ```sh
 poetry add --group dev \
     black \
