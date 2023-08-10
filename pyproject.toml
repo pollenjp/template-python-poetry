@@ -11,7 +11,7 @@ import_heading_firstparty  = "First Party Library"
 import_heading_localfolder = "Local Library"
 
 [tool.mypy]
-python_version = "3.10"
+python_version = "3.11"
 strict = true
 warn_return_any = true
 warn_unused_configs = true
