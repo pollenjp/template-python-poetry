@@ -10,10 +10,10 @@ Edit `pyproject.toml`
 
 ```toml
 [tool.poetry]
-name = "fastapi-score-server-app"
+name = "<package-name>"
 ...
 packages = [
-    {include = "<package>", from = "src"}
+    {include = "<package_name>", from = "src"}
 ]
 ```
 
